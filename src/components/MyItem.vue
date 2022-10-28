@@ -2,14 +2,14 @@
   <li @mouseenter="mouseHander(true)" @mouseleave="mouseHander(false)" :style="
   {backgroundColor:bgcolor,color:ftcolor}">
     <label>
-      <input type="checkbox" v-model="todo.isCompleted" />
+      <input type="checkbox" v-model="isCompleted" />
       <span>{{ todo.name }}</span>
     </label>
     <button class="btn btn-danger" v-show="isShow" @click="del">删除</button>
   </li>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
 import TodoItem from "../types/todo";
 export default defineComponent({
   name: "MyItem",
@@ -19,6 +19,10 @@ export default defineComponent({
       required:true,
     },
     delTodo:{
+      type:Function,
+      required:true
+    },
+    updateTodo:{
       type:Function,
       required:true
     },
@@ -46,18 +50,29 @@ export default defineComponent({
         isShow.value = false
       }
     };
+    // 删除按钮
     const del = () =>{
       if(window.confirm('确定要删除吗？')){
         props.delTodo(props.id)
       }
     }
+    //计算checkbox
+    const isCompleted = computed({
+      get(){
+        return props.todo.isCompleted
+      },
+      set(val){
+        props.updateTodo(props.todo,val)
+      }
+    })
 
     return {
       mouseHander,
       bgcolor,
       ftcolor,
       isShow,
-      del
+      del,
+      isCompleted
   
     };
   },
