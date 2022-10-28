@@ -1,5 +1,5 @@
 <template>
-  <div class="todo-footer" v-show="total">
+  <div class="todo-footer">
     <label>
       <!-- <input type="checkbox" :checked="isAll" @change="checkAll"/> -->
       <input type="checkbox" v-model="isAll" />
@@ -36,7 +36,7 @@ export default defineComponent({
     //全选或全不选
     const isAll = computed({
       get() {
-        return props.todos.every((item) => item.isCompleted == true);
+        return props.todos.length!=0 && props.todos.every((item) => item.isCompleted == true);
       },
       set(val) {
         props.todos.forEach((item) => (item.isCompleted = val));
