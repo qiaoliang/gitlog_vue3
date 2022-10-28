@@ -1,5 +1,6 @@
 <template>
-  <li>
+  <li @mouseenter="mouseHander(true)" @mouseleave="mouseHander(false)" :style="
+  {backgroundColor:bgcolor,color:ftcolor}">
     <label>
       <input type="checkbox" v-model="todo.isCompleted" />
       <span>{{ todo.name }}</span>
@@ -13,10 +14,23 @@ export default defineComponent({
   name: "MyItem",
   props: ["todo"],
   setup() {
-    const state = ref(null);
+    const bgcolor = ref("white")
+    const ftcolor = ref("black")
+    // mouse action
+    const mouseHander = (flag:boolean)=>{
+      if(flag){
+        bgcolor.value ='pink'
+        ftcolor.value = 'green'
+      }else{
+        bgcolor.value ='white'
+        ftcolor.value = 'black'
+      }
+    };
 
     return {
-      state,
+      mouseHander,
+      bgcolor,
+      ftcolor
     };
   },
 });
