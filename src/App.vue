@@ -2,8 +2,8 @@
   <div class="todo-container">
     <div class="todo-wrap">
       <MyHeader :addTodo="addTodoItem" />
-      <MyList :todos="todos" :delTodo="delTodoItem" :updateTodo="updateItem"/>
-      <MyFooter :todos="todos"/>
+      <MyList :todos="todos" :delTodo="delTodoItem" :updateTodo="updateItem" />
+      <MyFooter :todos="todos" :clearAllCompleted="clearAllCompleted"/>
     </div>
   </div>
 </template>
@@ -26,25 +26,30 @@ export default defineComponent({
       ],
     });
     //为列表添加数据
-    const addTodoItem = (todo:TodoItem) => {
+    const addTodoItem = (todo: TodoItem) => {
       state.todos.unshift(todo);
     };
     //为列表删除数据
-    const delTodoItem = (id:number) => {
-      state.todos.splice(id,1)
+    const delTodoItem = (id: number) => {
+      state.todos.splice(id, 1);
     };
     // 修改 todoItem 中的 isCompleted 的状态
-    const updateItem = (todo:TodoItem,isCompleted:boolean) =>{
-      todo.isCompleted = isCompleted
-      console.log(todo)
-    }
+    const updateItem = (todo: TodoItem, isCompleted: boolean) => {
+      todo.isCompleted = isCompleted;
+      console.log(todo);
+    };
+    //删除已经完成的数据
+    const clearAllCompleted = () => {
+      console.log("App.vue = clearAllCompleted");
+      state.todos = state.todos.filter((item) => !item.isCompleted);
+    };
     return {
       ...toRefs(state),
       addTodoItem,
       delTodoItem,
-      updateItem
+      updateItem,
+      clearAllCompleted,
     };
-
   },
 });
 </script>

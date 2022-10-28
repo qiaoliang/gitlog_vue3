@@ -7,7 +7,7 @@
     <span>
       <span>已完成{{ doneTotal }}</span> / 全部{{ total }}
     </span>
-    <button class="btn btn-danger" @click="clearAll">清除已完成任务</button>
+    <button class="btn btn-danger" @click="clearAllCompleted">清除已完成任务</button>
   </div>
 </template>
 
@@ -16,10 +16,13 @@ import { computed, defineComponent, ref } from "vue";
 import TodoItem from "../types/todo";
 export default defineComponent({
   name: "MyFooter",
-  //props:['todos','checkAllTodo','clearAllTodo'],
   props: {
     todos: {
       type: Array as () => TodoItem[],
+      required: true,
+    },
+    clearAllCompleted: {
+      type: Function,
       required: true,
     },
   },
@@ -31,16 +34,17 @@ export default defineComponent({
       );
     });
     //全选或全不选
-    const isAll =computed({
-      get(){
-        return props.todos.every(item => item.isCompleted == true)
+    const isAll = computed({
+      get() {
+        return props.todos.every((item) => item.isCompleted == true);
       },
-      set(val){
-        props.todos.forEach(item => item.isCompleted = val)
-      }
+      set(val) {
+        props.todos.forEach((item) => (item.isCompleted = val));
+      },
     });
-    const clearAll = () => {
-      //props.todos.forEach(item => {item.isCompleted = true} )
+    const clearAllCompleted = () => {
+      console.log("Myfooter = clearAllCompleted");
+      props.clearAllCompleted();
     };
     const total = computed(() => {
       return props.todos.length;
@@ -49,7 +53,7 @@ export default defineComponent({
       total,
       doneTotal,
       isAll,
-      clearAll,
+      clearAllCompleted,
     };
   },
 });
