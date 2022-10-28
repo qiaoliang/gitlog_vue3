@@ -1,7 +1,7 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <MyHeader />
+      <MyHeader :addTodo="addTodoItem"/>
       <MyList :todos="todos" />
       <MyFooter/>
     </div>
@@ -25,9 +25,13 @@ export default defineComponent({
         { id: 3, name: "奔驰", isCompleted: false },
       ],
     });
-
+    //为列表增加添加数据
+    const addTodoItem =(todo)=>{
+      state.todos.unshift(todo)
+    }
     return {
       ...toRefs(state),
+      addTodoItem
     };
   },
 });
