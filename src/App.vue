@@ -2,24 +2,32 @@
   <div class="todo-container">
     <div class="todo-wrap">
       <MyHeader />
-      <MyList />
+      <MyList :todos="todos" />
       <MyFooter/>
     </div>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, reactive, ref, toRefs } from "vue";
 import MyHeader from "./components/MyHeader.vue";
 import MyList from "./components/MyList.vue";
 import MyFooter from "./components/MyFooter.vue";
+import TodoItem from "./types/todo"
 export default defineComponent({
   name: "App",
-  components: { MyHeader,MyList,MyFooter },
+  components: { MyHeader, MyList, MyFooter },
+
   setup() {
-    const state = ref(null);
+    const state = reactive<{todos:TodoItem[]}>({
+      todos: [
+        { id: 1, name: "宝马", isCompleted: false },
+        { id: 2, name: "奥迪", isCompleted: true },
+        { id: 3, name: "奔驰", isCompleted: false },
+      ],
+    });
 
     return {
-      state,
+      ...toRefs(state),
     };
   },
 });

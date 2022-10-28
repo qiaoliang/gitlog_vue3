@@ -1,17 +1,17 @@
 <template>
   <li>
     <label>
-      <input type="checkbox" />
-      <span>xxxxx</span>
+      <input type="checkbox" v-model="todo.isCompleted" />
+      <span>{{ todo.name }}</span>
     </label>
     <button class="btn btn-danger" style="display: none">删除</button>
   </li>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, isReactive, reactive, ref } from "vue";
 export default defineComponent({
   name: "MyItem",
-
+  props: ["todo"],
   setup() {
     const state = ref(null);
 
