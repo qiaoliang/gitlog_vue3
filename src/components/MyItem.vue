@@ -5,7 +5,7 @@
       <input type="checkbox" v-model="todo.isCompleted" />
       <span>{{ todo.name }}</span>
     </label>
-    <button class="btn btn-danger" style="display: none">删除</button>
+    <button class="btn btn-danger" v-show="isShow">删除</button>
   </li>
 </template>
 <script lang="ts">
@@ -14,23 +14,30 @@ export default defineComponent({
   name: "MyItem",
   props: ["todo"],
   setup() {
+    // Item的前景色
     const bgcolor = ref("white")
+    // Item的背景色
     const ftcolor = ref("black")
+    // 删除按钮默认不显示
+    const isShow = ref(false)
     // mouse action
     const mouseHander = (flag:boolean)=>{
       if(flag){
         bgcolor.value ='pink'
         ftcolor.value = 'green'
+        isShow.value = true
       }else{
         bgcolor.value ='white'
         ftcolor.value = 'black'
+        isShow.value = false
       }
     };
 
     return {
       mouseHander,
       bgcolor,
-      ftcolor
+      ftcolor,
+      isShow
     };
   },
 });
@@ -58,7 +65,6 @@ li label li input {
 
 li button {
   float: right;
-  display: none;
   margin-top: 3px;
 }
 
