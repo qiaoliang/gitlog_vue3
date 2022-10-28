@@ -5,15 +5,29 @@
       <input type="checkbox" v-model="todo.isCompleted" />
       <span>{{ todo.name }}</span>
     </label>
-    <button class="btn btn-danger" v-show="isShow">删除</button>
+    <button class="btn btn-danger" v-show="isShow" @click="del">删除</button>
   </li>
 </template>
 <script lang="ts">
-import { defineComponent, isReactive, reactive, ref } from "vue";
+import { defineComponent, ref } from "vue";
+import TodoItem from "../types/todo";
 export default defineComponent({
   name: "MyItem",
-  props: ["todo"],
-  setup() {
+  props: {
+    todo:{
+      type:Object as () => TodoItem, //函数返回的是 TodoItem 类型
+      required:true,
+    },
+    delTodo:{
+      type:Function,
+      required:true
+    },
+    id:{
+      type:Number,
+      required:true
+    }
+  },
+  setup(props) {
     // Item的前景色
     const bgcolor = ref("white")
     // Item的背景色
@@ -32,12 +46,19 @@ export default defineComponent({
         isShow.value = false
       }
     };
+    const del = () =>{
+      if(window.confirm('确定要删除吗？')){
+        props.delTodo(props.id)
+      }
+    }
 
     return {
       mouseHander,
       bgcolor,
       ftcolor,
-      isShow
+      isShow,
+      del
+  
     };
   },
 });

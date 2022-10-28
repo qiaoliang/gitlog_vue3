@@ -1,9 +1,9 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <MyHeader :addTodo="addTodoItem"/>
-      <MyList :todos="todos" />
-      <MyFooter/>
+      <MyHeader :addTodo="addTodoItem" />
+      <MyList :todos="todos" :delTodo="delTodoItem"/>
+      <MyFooter />
     </div>
   </div>
 </template>
@@ -12,26 +12,31 @@ import { defineComponent, reactive, ref, toRefs } from "vue";
 import MyHeader from "./components/MyHeader.vue";
 import MyList from "./components/MyList.vue";
 import MyFooter from "./components/MyFooter.vue";
-import TodoItem from "./types/todo"
+import TodoItem from "./types/todo";
 export default defineComponent({
   name: "App",
   components: { MyHeader, MyList, MyFooter },
 
   setup() {
-    const state = reactive<{todos:TodoItem[]}>({
+    const state = reactive<{ todos: TodoItem[] }>({
       todos: [
         { id: 1, name: "宝马", isCompleted: false },
         { id: 2, name: "奥迪", isCompleted: true },
         { id: 3, name: "奔驰", isCompleted: false },
       ],
     });
-    //为列表增加添加数据
-    const addTodoItem =(todo)=>{
-      state.todos.unshift(todo)
-    }
+    //为列表添加数据
+    const addTodoItem = (todo:TodoItem) => {
+      state.todos.unshift(todo);
+    };
+    //为列表删除数据
+    const delTodoItem = (id:number) => {
+      state.todos.splice(id,1)
+    };
     return {
       ...toRefs(state),
-      addTodoItem
+      addTodoItem,
+      delTodoItem
     };
   },
 });
