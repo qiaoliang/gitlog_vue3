@@ -1,5 +1,4 @@
 <template>
-
   <div class="todo-footer" v-show="total">
     <label>
       <!-- <input type="checkbox" :checked="isAll" @change="checkAll"/> -->
@@ -13,40 +12,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { computed, defineComponent, ref } from "vue";
+import TodoItem from "../types/todo";
 export default defineComponent({
   name: "MyFooter",
   //props:['todos','checkAllTodo','clearAllTodo'],
-  props: ["todos"],
-  //   computed: {
-  //     total() {
-  //       return this.todos.length;
-  //     },
-  //     doneTotal() {
-  //       return this.todos.reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0);
-  //     },
-  //     isAll: {
-  //       get() {
-  //         return this.doneTotal === this.total && this.total > 0;
-  //       },
-  //       set(value) {
-  //         // this.checkAllTodo(value)
-  //         this.$emit("checkAllTodo", value);
-  //       },
-  //     },
-  //   },
-  //   methods: {
-  //     //清空所有已完成
-  //     clearAll() {
-  //       // this.clearAllTodo()
-  //       this.$emit("clearAllTodo");
-  //     },
-  //   },
-  setup() {
-    const total = ref(20);
-    const doneTotal = ref(10);
-    const clearAll = () => {};
-    const isAll = ref(true);
+  props: {
+    todos: {
+      type: Array as () => TodoItem[],
+      required: true,
+    },
+  },
+  setup(props, ctx) {
+    const doneTotal = computed(() => {
+      return props.todos.reduce(
+        (pre, todo, index) => pre + (todo.isCompleted ? 1 : 0),
+        0
+      );
+    });
+    //全选或全不选
+    const isAll =computed({
+      get(){
+        return props.todos.every(item => item.isCompleted == true)
+      },
+      set(val){
+        props.todos.forEach(item => item.isCompleted = val)
+      }
+    });
+    const clearAll = () => {
+      //props.todos.forEach(item => {item.isCompleted = true} )
+    };
+    const total = computed(() => {
+      return props.todos.length;
+    });
     return {
       total,
       doneTotal,
