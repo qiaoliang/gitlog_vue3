@@ -11,6 +11,7 @@ export default function<T> (url: string) {
     axios.get(url).then((response: any) => {
         //改变加载的状态
         loading.value = false
+        console.log(response.data);
         data.value = response.data
     }).catch((error: any) => {
         //改变加载的状态
