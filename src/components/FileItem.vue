@@ -1,30 +1,24 @@
 <template>
-  <li @mouseenter="mouseHander(true)" @mouseleave="mouseHander(false)" :style="
+  <li @mouseenter="mouseHander(true)" @mouseup="mouseHander(true)" @mouseleave="mouseHander(false)" :style="
   {backgroundColor:bgcolor,color:ftcolor}">
     <label>
       <input type="checkbox" v-model="isCompleted" />
-      <span>{{ todo.name }}</span>
-    </label>
-    <button class="btn btn-danger" v-show="isShow" @click="del">删除</button>
+      <span>{{ afile.id }}</span>
+      <span>{{ afile.rev }}</span>
+      <span>{{ afile.origin }}</span>
+      <span>{{ afile.target }}</span>
+      </label>
   </li>
 </template>
 <script lang="ts">
 import { computed, defineComponent, ref } from "vue";
-import TodoItem from "../types/todo";
+import ChangedFile from "../types/ChangedFile";
 export default defineComponent({
-  name: "MyItem",
+  name: "FileItem",
   props: {
-    todo:{
-      type:Object as () => TodoItem, //函数返回的是 TodoItem 类型
+    afile:{
+      type:Object as () => ChangedFile, //函数返回的是 ChangedFile 类型
       required:true,
-    },
-    delTodo:{
-      type:Function,
-      required:true
-    },
-    updateTodo:{
-      type:Function,
-      required:true
     },
     id:{
       type:Number,
@@ -36,33 +30,23 @@ export default defineComponent({
     const bgcolor = ref("white")
     // Item的背景色
     const ftcolor = ref("black")
-    // 删除按钮默认不显示
-    const isShow = ref(false)
     // mouse action
     const mouseHander = (flag:boolean)=>{
       if(flag){
         bgcolor.value ='pink'
         ftcolor.value = 'green'
-        isShow.value = true
       }else{
         bgcolor.value ='white'
         ftcolor.value = 'black'
-        isShow.value = false
       }
     };
-    // 删除按钮
-    const del = () =>{
-      if(window.confirm('确定要删除吗？')){
-        props.delTodo(props.id)
-      }
-    }
     //计算checkbox
     const isCompleted = computed({
       get(){
-        return props.todo.isCompleted
+        return props.afile.isCompleted
       },
       set(val){
-        props.updateTodo(props.todo,val)
+        
       }
     })
 
@@ -70,8 +54,6 @@ export default defineComponent({
       mouseHander,
       bgcolor,
       ftcolor,
-      isShow,
-      del,
       isCompleted
   
     };

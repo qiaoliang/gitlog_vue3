@@ -7,3 +7,8 @@ export function saveTodos(todos: TodoItem[]) {
 export function readTodos(): TodoItem[] {
     return JSON.parse(localStorage.getItem('todos_key') || '[]')
 }
+
+
+export function readFiles(): TodoItem[] {
+    return JSON.parse(localStorage.getItem('todos_key') || '[]')
+}

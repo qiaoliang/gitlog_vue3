@@ -1,24 +1,22 @@
 <template>
   <ul class="todo-main">
-    <MyItem
-      v-for="(item, index) in todos"
+    <FileItem
+      v-for="(item, index) in files"
       :key="item.id"
-      :todo="item"
-      :delTodo="delTodo"
+      :afile="item"
       :id="index"
-      :updateTodo="updateTodo"
     />
   </ul>
 </template>
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import MyItem from "./MyItem.vue";
+import FileItem from "./FileItem.vue";
 export default defineComponent({
-  name: "MyList",
+  name: "FileList",
   components: {
-    MyItem,
+    FileItem,
   },
-  props: ["todos", "delTodo","updateTodo"],
+  props: ["files", "delTodo","updateTodo"],
 });
 </script>
 <style scoped>
