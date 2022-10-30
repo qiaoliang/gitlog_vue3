@@ -1,37 +1,41 @@
 <template>
   <ul class="todo-main">
+  <h2>新增的文件</h2>
+  <hr>
+  <li>
+  <div id="div_file_wrap">
+      <div id="div_file_id">ID</div>
+      <div id="div_file_origin">origin</div>
+      <div id="div_file_revid">revId</div>
+      <div id="div_file_target">target</div>
+    </div>
+  </li>
     <FileItem
-      v-for="(item, index) in files"
-      :key="item.id"
+      v-for="(item) in files"
       :afile="item"
-      :id="item.rev"
     />
   </ul>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs } from "vue";
+import { defineComponent, onMounted, reactive } from "vue";
 import FileItem from "./FileItem.vue";
 import ChangedFile from "../types/ChangedFile";
 import axios from "axios";
-import useRequest from "../hooks/useRequest";
 export default defineComponent({
   name: "FileList",
   components: {
     FileItem,
   },
   setup() {
-    const state = reactive<{ files: ChangedFile[]|null }>({
-      files: [],
-    });
+    const files = reactive<ChangedFile[]>([]);
     onMounted(async () => {
       const res = await axios.get("http://localhost:1313/addedfiles");
       //const res = await axios.get("/data/changedFile.json");
-      state.files = res.data;
-      console.log(res);
+      files.push(...res.data);
+      console.log(files);
     });
-    console.log(state.files);
     return {
-      ...toRefs(state),
+      files,
     };
   },
 });

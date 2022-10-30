@@ -1,0 +1,51 @@
+li {
+    list-style: none;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+li label {
+    float: left;
+    cursor: pointer;
+}
+
+li button {
+    float: right;
+    margin-top: 3px;
+}
+
+li:before {
+    content: initial;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+#div_file_wrap {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#div_file {
+    height: 100px;
+}
+
+#div_file_id {
+    width: 100px;
+}
+
+#div_file_revid {
+    width: 200px;
+}
+
+#div_file_origin {
+    width: 500px;
+}
+
+#div_file_target {
+    width: 500px;
+}
+

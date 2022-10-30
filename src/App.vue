@@ -1,8 +1,6 @@
 <template>
   <div class="todo-container">
     <div class="todo-wrap">
-      <FileList />
-<!--    
       <Suspense>
         <template #default>
           <FileList />
@@ -11,7 +9,6 @@
           <h2>loading Address ....</h2>
         </template>
       </Suspense>
--->
     </div>
   </div>
 </template>
