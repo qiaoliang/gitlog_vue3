@@ -24,8 +24,8 @@ export default defineComponent({
       files: [],
     });
     onMounted(async () => {
-      //const res = await axios.get("http://localhost:1313/files");
-      const res = await axios.get("/data/changedFile.json");
+      const res = await axios.get("http://localhost:1313/addedfiles");
+      //const res = await axios.get("/data/changedFile.json");
       state.files = res.data;
       console.log(res);
     });
