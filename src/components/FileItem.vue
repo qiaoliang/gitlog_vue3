@@ -2,7 +2,6 @@
   <li @mouseenter="mouseHander(true)" @mouseup="mouseHander(true)" @mouseleave="mouseHander(false)" :style="
   {backgroundColor:bgcolor,color:ftcolor}">
     <label>
-      <input type="checkbox" v-model="isCompleted" />
       <span>{{ afile.id }}</span>
       <span>{{ afile.rev }}</span>
       <span>{{ afile.origin }}</span>
@@ -20,10 +19,6 @@ export default defineComponent({
       type:Object as () => ChangedFile, //函数返回的是 ChangedFile 类型
       required:true,
     },
-    id:{
-      type:String,
-      required:true
-    }
   },
   setup(props) {
     // Item的前景色
@@ -40,22 +35,10 @@ export default defineComponent({
         ftcolor.value = 'black'
       }
     };
-    //计算checkbox
-    const isCompleted = computed({
-      get(){
-        return props.afile.isCompleted
-      },
-      set(val){
-        
-      }
-    })
-
     return {
       mouseHander,
       bgcolor,
-      ftcolor,
-      isCompleted
-  
+      ftcolor
     };
   },
 });

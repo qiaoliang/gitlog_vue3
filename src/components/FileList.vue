@@ -21,21 +21,15 @@ export default defineComponent({
   },
   setup() {
     const state = reactive<{ files: ChangedFile[]|null }>({
-      files: [
-        { id: 1, rev: "3433535", origin: "1.txt", target: "1.png", isCompleted: false },
-        { id: 2, rev: "ewete54", origin: "2.txt", target: "2.png", isCompleted: true },
-        { id: 3, rev: "ttttt33", origin: "3.txt", target: "3.png", isCompleted: false },
-      ],
+      files: [],
+    });
+    onMounted(async () => {
+      //const res = await axios.get("http://localhost:1313/files");
+      const res = await axios.get("/data/changedFile.json");
+      state.files = res.data;
+      console.log(res);
     });
     console.log(state.files);
-    onMounted(() => {
-      const { loading, data, errorMsg } = useRequest<ChangedFile[]|null>("/data/changedFile.json");
-      state.files = data.value
-      console.log(state.files);
-      return{ 
-        ...toRefs(state),
-     }
-    });
     return {
       ...toRefs(state),
     };
