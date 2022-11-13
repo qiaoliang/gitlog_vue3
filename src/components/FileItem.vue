@@ -23,8 +23,16 @@ export default defineComponent({
       type: Object as () => ChangedFile, //函数返回的是 ChangedFile 类型
       required: true,
     },
+    origin: {
+      type: String,
+      required: true,
+    },
+    rev: {
+      type: String,
+      required: true,
+    },
   },
-  setup(props,{emit}) {
+  setup(props, { emit }) {
     // Item的前景色
     const bgcolor = ref("white");
     // Item的背景色
@@ -39,9 +47,9 @@ export default defineComponent({
         ftcolor.value = "black";
       }
     };
-    const clickHander =()=>{
-      window.alert("这里要显示出 Commit message")
-      emit("fileHandler","REV")
+    const clickHander = () => {
+      // 返回当前被点击文件的文件名
+      emit("fileHandler", props.origin +"_"+props.rev);
     };
 
     return {

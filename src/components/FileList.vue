@@ -13,6 +13,8 @@
     <FileItem
       v-for="(item) in files"
       :afile="item"
+      :origin="item.origin"
+      :rev="item.rev"
       @fileHandler ="emitFileHandler"
     />
   </ul>
@@ -34,9 +36,9 @@ export default defineComponent({
       const res = await axios.get("/data/changedFile.json");
       files.push(...res.data);
     });
-    const emitFileHandler = function(revid:string){
-      window.alert("get__"+revid +"__from file item")
-      emit('fileHandler',revid)
+    const emitFileHandler = function(originfile:string){
+      //将文件名向上传给 App.vue
+      emit('fileHandler',originfile)
     } 
     return {
       files,

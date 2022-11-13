@@ -36,9 +36,12 @@ export default defineComponent({
   components: { FileList, RevList },
 
   setup() {
-    const fileHandler= function(revid:string){
-      window.alert("catch__"+revid +"__from FileList")
+    const fileHandler= function(originfile:string){
+      window.alert("catch__"+originfile +"__from FileList")
+      //这里需要根据文件名找到其对应的所有 Revisions
+      
     };
+
     return {
       fileHandler
     }
