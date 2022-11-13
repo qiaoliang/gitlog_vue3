@@ -13,6 +13,7 @@
     <FileItem
       v-for="(item) in files"
       :afile="item"
+      @fileHandler ="emitFileHandler"
     />
   </ul>
 </template>
@@ -26,16 +27,20 @@ export default defineComponent({
   components: {
     FileItem,
   },
-  setup() {
+  setup(props,{attrs,emit}) {
     const files = reactive<ChangedFile[]>([]);
     onMounted(async () => {
       //const res = await axios.get("http://localhost:1313/addedfiles");
       const res = await axios.get("/data/changedFile.json");
       files.push(...res.data);
-      console.log(files);
     });
+    const emitFileHandler = function(revid:string){
+      window.alert("get__"+revid +"__from file item")
+      emit('fileHandler',revid)
+    } 
     return {
       files,
+      emitFileHandler,
     };
   },
 });

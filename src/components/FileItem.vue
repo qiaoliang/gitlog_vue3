@@ -24,7 +24,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props,{emit}) {
     // Item的前景色
     const bgcolor = ref("white");
     // Item的背景色
@@ -41,7 +41,9 @@ export default defineComponent({
     };
     const clickHander =()=>{
       window.alert("这里要显示出 Commit message")
-    }
+      emit("fileHandler","REV")
+    };
+
     return {
       mouseHander,
       clickHander,

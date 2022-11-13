@@ -3,7 +3,7 @@
     <div class="filelist-wrap">
       <Suspense>
         <template #default>
-          <FileList />
+          <FileList @fileHandler="fileHandler"/>
         </template>
         <template v-slot:fallback>
           <h2>loading Address ....</h2>
@@ -19,6 +19,7 @@
       <div class="div_detail_detail"><strong>detail:</strong> i am detail.</div>
       <div class="div_detail_files">
         <div><strong>变更的文件如下:</strong></div>
+        <hr/>
         <div class="div_detail_fileitem">file1</div>
         <div class="div_detail_fileitem">file2</div>
         <div class="div_detail_fileitem">file3</div>
@@ -34,7 +35,14 @@ export default defineComponent({
   name: "App",
   components: { FileList, RevList },
 
-  setup() {},
+  setup() {
+    const fileHandler= function(revid:string){
+      window.alert("catch__"+revid +"__from FileList")
+    };
+    return {
+      fileHandler
+    }
+  },
 });
 </script>
 <style scoped>
@@ -51,6 +59,7 @@ export default defineComponent({
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  width:1000px;
 }
 
 .app-container .revdetail-wrap {
