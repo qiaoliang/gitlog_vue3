@@ -26,7 +26,7 @@ export default defineComponent({
   setup() {
     const revisions = reactive<RevDetail[]>([]);
     onMounted(async () => {
-      //const res = await axios.get("http://localhost:1313/addedfiles");
+      //const res = await axios.get("http://localhost:1313/getRevision");
       const res = await axios.get("/data/revlist.json");
       revisions.push(...res.data);
       console.log(revisions);

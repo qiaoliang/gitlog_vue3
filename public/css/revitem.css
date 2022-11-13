@@ -24,27 +24,31 @@ li:last-child {
     border-bottom: none;
 }
 
-#div_file_wrap {
+#div_rev_wrap {
     display: flex;
     justify-content: flex-start;
 }
 
-#div_file_id {
-    text-align: left;
-    width: 50px;
-}
-
-#div_file_origin {
+#div_detail_rev {
     text-align: left;
     width: 100px;
 }
 
-#div_file_revid {
+#div_detail_brief {
     text-align: left;
-    width: 200px;
+    width: 500px;
 }
 
-#div_file_target {
+#div_detail_detail {
     text-align: left;
-    width: 100px;
+    width: 500px;
+}
+
+#div_detail_files {
+    text-align: left;
+    width: 500px;
+}
+#div_detail_fileitem {
+    text-align: left;
+    width: 500px;
 }
