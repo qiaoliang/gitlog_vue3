@@ -1,5 +1,5 @@
 <template>
-  <ul class="todo-main">
+  <ul class="filelist-main">
   <h2>新增的文件</h2>
   <hr>
   <li>
@@ -29,8 +29,8 @@ export default defineComponent({
   setup() {
     const files = reactive<ChangedFile[]>([]);
     onMounted(async () => {
-      const res = await axios.get("http://localhost:1313/addedfiles");
-      //const res = await axios.get("/data/changedFile.json");
+      //const res = await axios.get("http://localhost:1313/addedfiles");
+      const res = await axios.get("/data/changedFile.json");
       files.push(...res.data);
       console.log(files);
     });
@@ -42,14 +42,14 @@ export default defineComponent({
 </script>
 <style scoped>
 /*list*/
-.todo-main {
+.filelist-main {
   margin-left: 0px;
   border: 1px solid #ddd;
   border-radius: 2px;
   padding: 0px;
 }
 
-.todo-empty {
+.filelist-empty {
   height: 40px;
   line-height: 40px;
   border: 1px solid #ddd;

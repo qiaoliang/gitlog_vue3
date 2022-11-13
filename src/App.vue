@@ -1,6 +1,6 @@
 <template>
-  <div class="todo-container">
-    <div class="todo-wrap">
+  <div class="app-container">
+    <div class="filelist-wrap">
       <Suspense>
         <template #default>
           <FileList />
@@ -10,26 +10,36 @@
         </template>
       </Suspense>
     </div>
+    <div class="revlist-wrap">
+      <RevList/>
+    </div>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "vue";
 import FileList from "./components/FileList.vue";
+import RevList from "./components/RevList.vue";
 export default defineComponent({
   name: "App",
-  components: { FileList },
+  components: { FileList,RevList },
 
   setup() {},
 });
 </script>
 <style scoped>
-.todo-container {
+.app-container {
   width: 600px;
   margin: 0 auto;
 }
-.todo-container .todo-wrap {
+.app-container .filelist-wrap {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
+.app-container .revlist-wrap {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
 </style>

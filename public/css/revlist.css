@@ -1,0 +1,40 @@
+li {
+    list-style: none;
+    height: 36px;
+    line-height: 36px;
+    padding: 0 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+li label {
+    float: left;
+    cursor: pointer;
+}
+
+li button {
+    float: right;
+    margin-top: 3px;
+}
+
+li:before {
+    content: initial;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+#div_rev_wrap {
+    display: flex;
+    justify-content: flex-start;
+}
+
+#div_rev_id {
+    text-align: left;
+    width: 100px;
+}
+
+#div_rev_brief {
+    text-align: left;
+    width: 500px;
+}
