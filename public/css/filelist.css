@@ -29,23 +29,23 @@ li:last-child {
     justify-content: flex-start;
 }
 
-#div_file {
-    height: 100px;
-}
-
 #div_file_id {
+    text-align: left;
     width: 100px;
 }
 
 #div_file_revid {
     width: 200px;
+    text-align: left;
 }
 
 #div_file_origin {
+    text-align: left;
     width: 500px;
 }
 
 #div_file_target {
+    text-align: left;
     width: 500px;
 }
 
