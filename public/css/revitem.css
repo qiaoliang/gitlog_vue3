@@ -24,10 +24,7 @@ li:last-child {
     border-bottom: none;
 }
 
-#div_rev_wrap {
-    display: flex;
-    justify-content: flex-start;
-}
+
 
 #div_detail_rev {
     text-align: left;
