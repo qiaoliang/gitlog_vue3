@@ -48,7 +48,9 @@ export default defineComponent({
     };
     const revInfo = reactive({ id: 0, rev: "", brief: "", detail: "",changes:[] });
     const revHandler = function (revision: string) {
+      revision = "175c40a"
       window.alert("rev is changing " + revision);
+      //axios.get("http://localhost:1313/revinfo/"+revision).then((res) => {
       axios.get("/data/revdetail.json").then((res) => {
         let result = res.data;
         console.log(result)
