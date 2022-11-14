@@ -21,16 +21,7 @@
       </Suspense>
     </div>
     <div class="revdetail-wrap">
-      <div class="div_detail_rev"><strong>Rev:</strong> Rev_1</div>
-      <div class="div_detail_brief"><strong>brief:</strong> i am brief.</div>
-      <div class="div_detail_detail"><strong>detail:</strong> i am detail.</div>
-      <div class="div_detail_files">
-        <div><strong>变更的文件如下:</strong></div>
-        <hr />
-        <div class="div_detail_fileitem">file1</div>
-        <div class="div_detail_fileitem">file2</div>
-        <div class="div_detail_fileitem">file3</div>
-      </div>
+      <RevDetailView :revInfo="revInfo"/>
     </div>
   </div>
 </template>
@@ -39,10 +30,11 @@ import axios from "axios";
 import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import FileList from "./components/FileList.vue";
 import RevList from "./components/RevList.vue";
+import RevDetailView from "./components/RevDetailView.vue";
 import RevDetail from "./types/RevDetail";
 export default defineComponent({
   name: "App",
-  components: { FileList, RevList },
+  components: { FileList, RevList ,RevDetailView},
 
   setup() {
     const state = reactive<{ revs: RevDetail[] }>({
@@ -54,22 +46,23 @@ export default defineComponent({
         state.revs.push(...res.data);
       });
     };
-    const revState = reactive<RevDetail>({ id: 0, rev: "", brief: "", detail: "" });
+    const revInfo = reactive({ id: 0, rev: "", brief: "", detail: "",changes:[] });
     const revHandler = function (revision: string) {
       window.alert("rev is changing " + revision);
       axios.get("/data/revdetail.json").then((res) => {
         let result = res.data;
-        revState.id = result.id;
-        revState.rev = result.rev;
-        revState.brief = result.brief;
-        revState.detail = result.detail;
-        revState.changes = result.changes;
+        console.log(result)
+        revInfo.id = result.id;
+        revInfo.rev = result.rev;
+        revInfo.brief = result.brief;
+        revInfo.detail = result.detail;
+        revInfo.changes = result.changes;
       });
     };
     return {
       ...toRefs(state),
       fileHandler,
-      ...toRefs(revState),
+      revInfo,
       revHandler,
     };
   },
