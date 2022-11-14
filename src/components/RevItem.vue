@@ -38,7 +38,6 @@ export default defineComponent({
       }
     };
     const clickHander = () => {
-      window.alert("这里" + props.revItem.rev);
       emit("revHandler", props.revItem.rev);
     };
     return {

@@ -32,8 +32,8 @@ export default defineComponent({
   setup(props,{attrs,emit}) {
     const files = reactive<ChangedFile[]>([]);
     onMounted(async () => {
-      //const res = await axios.get("http://localhost:1313/addedfiles");
-      const res = await axios.get("/data/changedFile.json");
+      const res = await axios.get("http://localhost:1313/addedfiles");
+      //const res = await axios.get("/data/changedFile.json");
       files.push(...res.data);
     });
     const emitFileHandler = function(originfile:string){

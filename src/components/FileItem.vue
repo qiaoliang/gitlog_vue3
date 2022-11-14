@@ -49,7 +49,7 @@ export default defineComponent({
     };
     const clickHander = () => {
       // 返回当前被点击文件的文件名
-      emit("fileHandler", props.origin +"_"+props.rev);
+      emit("fileHandler", props.origin);
     };
 
     return {
