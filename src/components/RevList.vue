@@ -23,18 +23,28 @@ export default defineComponent({
   components: {
     RevItem,
   },
-  setup() {
+  props: {
+    revs: {
+      type: Object as () => RevDetail, //函数返回的是 ChangedFile 类型
+      required: true,
+    },
+  },
+  
+  setup(props) {
+    console.log(props.revs)
     const revisions = reactive<RevDetail[]>([]);
     onMounted(async () => {
       //const res = await axios.get("http://localhost:1313/getRevision");
       const res = await axios.get("/data/revlist.json");
       revisions.push(...res.data);
-      console.log(revisions);
     });
     return {
       revisions,
     };
 
+  },
+  beforeUpdate() {
+    console.log("这里要显示一下 revs");
   },
 });
 </script>

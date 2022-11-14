@@ -11,7 +11,7 @@
       </Suspense>
     </div>
     <div class="revlist-wrap">
-      <RevList />
+      <RevList :revs="revs"/>
     </div>
     <div class="revdetail-wrap">
       <div class="div_detail_rev"><strong>Rev:</strong> Rev_1</div>
@@ -28,22 +28,30 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import axios from "axios";
+import { defineComponent, reactive } from "vue";
 import FileList from "./components/FileList.vue";
 import RevList from "./components/RevList.vue";
+import RevDetail from "./types/RevDetail";
 export default defineComponent({
   name: "App",
   components: { FileList, RevList },
 
   setup() {
+    const revs = reactive<RevDetail[]>([])
     const fileHandler= function(originfile:string){
       window.alert("catch__"+originfile +"__from FileList")
       //这里需要根据文件名找到其对应的所有 Revisions
-      
+      async () => {
+      //const res = await axios.get("http://localhost:1313/addedfiles");
+      const res = await axios.get("/data/revlist_1.txt.json");
+      revs.push(...res.data);
+    }
     };
 
     return {
-      fileHandler
+      revs,
+      fileHandler,
     }
   },
 });
