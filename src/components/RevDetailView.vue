@@ -8,7 +8,7 @@
     <div><strong>变更的文件如下:</strong></div>
     <hr />
     <ul class="revdetail_main">
-      <RevDetailFile />
+      <RevDetailFile  v-for="changedfile in revInfo.changes" :fileitem="changedfile" />
     </ul>
   </div>
 </template>
