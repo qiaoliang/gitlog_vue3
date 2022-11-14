@@ -8,10 +8,8 @@
         <div id="div_rev_brief">Commit Brief</div>
       </div>
     </li>
-    <RevItem
-      v-for="(item) in revs"
-      :revItem="item"
-    />  </ul>
+    <RevItem v-for="item in revs" :revItem="item" @revHandler="emitRevisonHandler" />
+  </ul>
 </template>
 <script lang="ts">
 import { defineComponent, onMounted, reactive } from "vue";
@@ -28,10 +26,14 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-
+  setup(props, { emit }) {
+    const emitRevisonHandler = function (revision: string) {
+      emit("revHandler", revision);
+    };
+    return {
+      emitRevisonHandler,
+    };
   },
-
 });
 </script>
 <style scoped>

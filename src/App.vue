@@ -13,7 +13,7 @@
     <div class="revlist-wrap">
       <Suspense>
         <template #default>
-          <RevList :revs="revs" />
+          <RevList :revs="revs" @revHandler="revHandler" />
         </template>
         <template v-slot:fallback>
           <h2>loading Rev ....</h2>
@@ -49,14 +49,28 @@ export default defineComponent({
       revs: [],
     });
     const fileHandler = function (origin: string) {
-      state.revs=[]
+      state.revs = [];
       axios.get("/data/revlist_1.json").then((res) => {
         state.revs.push(...res.data);
+      });
+    };
+    const revState = reactive<RevDetail>({ id: 0, rev: "", brief: "", detail: "" });
+    const revHandler = function (revision: string) {
+      window.alert("rev is changing " + revision);
+      axios.get("/data/revdetail.json").then((res) => {
+        let result = res.data;
+        revState.id = result.id;
+        revState.rev = result.rev;
+        revState.brief = result.brief;
+        revState.detail = result.detail;
+        revState.changes = result.changes;
       });
     };
     return {
       ...toRefs(state),
       fileHandler,
+      ...toRefs(revState),
+      revHandler,
     };
   },
 });

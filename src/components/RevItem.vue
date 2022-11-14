@@ -8,7 +8,6 @@
     <div id="div_rev_wrap">
       <div id="div_rev_id">{{ revItem.rev }}</div>
       <div id="div_rev_brief">{{ revItem.brief }}</div>
-
     </div>
   </li>
 </template>
@@ -23,7 +22,7 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
+  setup(props, { emit }) {
     // Item的前景色
     const bgcolor = ref("white");
     // Item的背景色
@@ -38,9 +37,10 @@ export default defineComponent({
         ftcolor.value = "black";
       }
     };
-    const clickHander =()=>{
-      window.alert("这里要显示出这个 Rev 所有的changed File List")
-    }
+    const clickHander = () => {
+      window.alert("这里" + props.revItem.rev);
+      emit("revHandler", props.revItem.rev);
+    };
     return {
       mouseHander,
       clickHander,

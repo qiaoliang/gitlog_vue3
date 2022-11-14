@@ -1,0 +1,11 @@
+{
+    "id": "1",
+    "rev": "aaaaaa_",
+    "brief":"I am brief for aaaaa_",
+    "detail":"I am detail \n I am Detail\n",
+    "changes":[
+        { "id": "1", "rev": "aaaaaa_","origin":"detail_A.txt", "target":"a.png" },
+        { "id": "2", "rev": "aaaaaa_","origin":"detail_B.txt", "target":"b.png" },
+        { "id": "3", "rev": "aaaaaa_","origin":"detail_C.txt", "target":"c.png"}
+    ]
+}
