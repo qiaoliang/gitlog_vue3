@@ -70,12 +70,14 @@ export default defineComponent({
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  background-color: aquamarine;
 }
 .app-container .revlist-wrap {
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
   width: 1000px;
+  background-color: bisque;
 }
 
 .app-container .revdetail-wrap {
@@ -83,5 +85,6 @@ export default defineComponent({
   border: 1px solid #000;
   border-radius: 5px;
   width: 500px;
+  background-color: lightblue;
 }
 </style>
