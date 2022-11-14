@@ -3,7 +3,7 @@
     <div class="filelist-wrap">
       <Suspense>
         <template #default>
-          <FileList @fileHandler="fileHandler"/>
+          <FileList @fileHandler="fileHandler" />
         </template>
         <template v-slot:fallback>
           <h2>loading Address ....</h2>
@@ -11,7 +11,14 @@
       </Suspense>
     </div>
     <div class="revlist-wrap">
-      <RevList :revs="revs"/>
+      <Suspense>
+        <template #default>
+          <RevList :revs="revs" />
+        </template>
+        <template v-slot:fallback>
+          <h2>loading Rev ....</h2>
+        </template>
+      </Suspense>
     </div>
     <div class="revdetail-wrap">
       <div class="div_detail_rev"><strong>Rev:</strong> Rev_1</div>
@@ -19,7 +26,7 @@
       <div class="div_detail_detail"><strong>detail:</strong> i am detail.</div>
       <div class="div_detail_files">
         <div><strong>变更的文件如下:</strong></div>
-        <hr/>
+        <hr />
         <div class="div_detail_fileitem">file1</div>
         <div class="div_detail_fileitem">file2</div>
         <div class="div_detail_fileitem">file3</div>
@@ -29,7 +36,7 @@
 </template>
 <script lang="ts">
 import axios from "axios";
-import { defineComponent, reactive } from "vue";
+import { defineComponent, onMounted, reactive, toRefs } from "vue";
 import FileList from "./components/FileList.vue";
 import RevList from "./components/RevList.vue";
 import RevDetail from "./types/RevDetail";
@@ -38,28 +45,26 @@ export default defineComponent({
   components: { FileList, RevList },
 
   setup() {
-    const revs = reactive<RevDetail[]>([])
-    const fileHandler= function(originfile:string){
-      window.alert("catch__"+originfile +"__from FileList")
-      //这里需要根据文件名找到其对应的所有 Revisions
-      async () => {
-      //const res = await axios.get("http://localhost:1313/addedfiles");
-      const res = await axios.get("/data/revlist_1.txt.json");
-      revs.push(...res.data);
-    }
+    const state = reactive<{ revs: RevDetail[] }>({
+      revs: [],
+    });
+    const fileHandler = function (origin: string) {
+      state.revs=[]
+      axios.get("/data/revlist_1.json").then((res) => {
+        state.revs.push(...res.data);
+      });
     };
-
     return {
-      revs,
+      ...toRefs(state),
       fileHandler,
-    }
+    };
   },
 });
 </script>
 <style scoped>
 .app-container {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
 }
 .app-container .filelist-wrap {
   padding: 10px;
@@ -70,13 +75,13 @@ export default defineComponent({
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  width:1000px;
+  width: 1000px;
 }
 
 .app-container .revdetail-wrap {
   padding: 10px;
   border: 1px solid #000;
   border-radius: 5px;
-  width:500px;
+  width: 500px;
 }
 </style>

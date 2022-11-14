@@ -9,7 +9,7 @@
       </div>
     </li>
     <RevItem
-      v-for="(item) in revisions"
+      v-for="(item) in revs"
       :revItem="item"
     />  </ul>
 </template>
@@ -17,7 +17,6 @@
 import { defineComponent, onMounted, reactive } from "vue";
 import RevItem from "./RevItem.vue";
 import RevDetail from "../types/RevDetail";
-import axios from "axios";
 export default defineComponent({
   name: "RevList",
   components: {
@@ -25,27 +24,14 @@ export default defineComponent({
   },
   props: {
     revs: {
-      type: Object as () => RevDetail, //函数返回的是 ChangedFile 类型
+      type: Object as () => RevDetail[], //函数返回的是 RevDetail 类型
       required: true,
     },
   },
-  
-  setup(props) {
-    console.log(props.revs)
-    const revisions = reactive<RevDetail[]>([]);
-    onMounted(async () => {
-      //const res = await axios.get("http://localhost:1313/getRevision");
-      const res = await axios.get("/data/revlist.json");
-      revisions.push(...res.data);
-    });
-    return {
-      revisions,
-    };
+  setup() {
 
   },
-  beforeUpdate() {
-    console.log("这里要显示一下 revs");
-  },
+
 });
 </script>
 <style scoped>
