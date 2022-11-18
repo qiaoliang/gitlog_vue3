@@ -1,9 +1,9 @@
 import { mergeConfig } from 'vite'
-import { defineConfig } from 'vitest/config'
+import { configDefaults, defineConfig } from 'vitest/config'
 import viteConfig from './vite.config'
 
 export default mergeConfig(viteConfig, defineConfig({
   test: {
-    exclude: ['packages/template/*'],
+    exclude: [...configDefaults.exclude, 'packages/template/*', '**/node_modules/**'],
   },
 }))
