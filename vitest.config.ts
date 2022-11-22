@@ -4,6 +4,6 @@ import viteConfig from './vite.config'
 
 export default mergeConfig(viteConfig, defineConfig({
   test: {
-    exclude: [...configDefaults.exclude, 'packages/template/*', '**/node_modules/**'],
+    exclude: [...configDefaults.exclude, 'packages/template/*', '**/node_modules/**','21-try-vitest/**'],
   },
 }))
